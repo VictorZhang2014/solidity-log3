@@ -3,63 +3,101 @@ pragma solidity ^0.8.18;
 
 contract SolidityLogTest { 
 
-    function exudeLog(bytes32 e, uint t0, bytes32 t1, bytes memory t2, bytes memory t3, bytes memory data) private {
-        assembly { 
-            let p := add(0x0, 0x20)
-            mstore(p, data) 
-            if eq(t0, 0x1) {
-                log1(p, 0x20, e)  
-            } 
-            if eq(t0, 0x2) {
-                log2(p, 0x20, e, t1)  
-            } 
-            if eq(t0, 0x3) {
-                log3(p, 0x20, e, t1, t2)  
-            }
-            if eq(t0, 0x4) {
-                log4(p, 0x20, e, t1, t2, t3)  
-            }
-        }
-  } 
-
-	function log(string memory n) external { 
-		exudeLog(getName(n), 1, "", "", "", "");
+	event Fire();
+	function test1(string memory n) external { 
+		emit Fire();
+		bytes32 e = keccak256(abi.encodePacked(n)); 
+		assembly {   
+			log1(0x0, 0x0, e)    
+		}
 	}
 
-	function logInt(string memory n, int p0) external { 
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
+	event Fire(int256 indexed t1);
+	function test2(string memory n, int256 t1) external {  
+		emit Fire(t1);
+		bytes32 e = keccak256(abi.encodePacked(n)); 
+		assembly {   
+			log2(0x0, 0x0, e, t1)    
+		}
 	}
 
-	function logUint(string memory n, uint p0) external {
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
+	event Fire(uint256 indexed t1);
+	function test3(string memory n, uint256 t1) external {
+		emit Fire(t1);
+		bytes32 e = keccak256(abi.encodePacked(n)); 
+		assembly {   
+			log2(0x0, 0x0, e, t1)    
+		}
 	}
 
-	function logString(string memory n, string memory p0) external {
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
+	event Fire(string indexed t1);
+	function test4(string memory n, string memory t1) external {
+		emit Fire(t1);
+		bytes32 e = keccak256(abi.encodePacked(n)); 
+		bytes32 t1_ = keccak256(abi.encodePacked(t1)); 
+		assembly {   
+			log2(0x0, 0x0, e, t1_)    
+		}
 	}
 
-	function logBool(string memory n, bool p0) external {
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
+	event Fire(bool indexed t1);
+	function test5(string memory n, bool t1) external {
+		emit Fire(t1);
+		bytes32 e = keccak256(abi.encodePacked(n));  
+		assembly {   
+			log2(0x0, 0x0, e, t1)    
+		}
 	}
 
-	function logAddress(string memory n, address p0) external {
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
+	event Fire(address indexed t1);
+	function test6(string memory n, address t1) external {
+		emit Fire(t1);
+		bytes32 e = keccak256(abi.encodePacked(n));  
+		assembly {   
+			log2(0x0, 0x0, e, t1)    
+		}
 	}
 
-	function logBytes32(string memory n, bytes32 p0) external {
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
+	event Fire(bytes32 indexed t1);
+	function test7(string memory n, bytes32 t1) external {
+		emit Fire(t1);
+		bytes32 e = keccak256(abi.encodePacked(n));  
+		assembly {   
+			log2(0x0, 0x0, e, t1)    
+		}
+	} 
+
+	event Fire(address indexed t1, uint256 indexed t2);
+	function test8(string memory n, address t1, uint256 t2) external { 
+		emit Fire(t1, t2);
+		bytes32 e = keccak256(abi.encodePacked(n));  
+		assembly {   
+			log3(0x0, 0x0, e, t1, t2)    
+		}
 	}
 
-	function logBytes(string memory n, bytes memory p0) external {
-		exudeLog(getName(n), 2, keccak256(abi.encodePacked(p0)), "", "", "");
-	}
+	event Fire(address indexed t1, uint256 indexed t2, bool indexed t3);
+	function test9(string memory n, address t1, uint256 t2, bool t3) external { 
+		emit Fire(t1, t2, t3);
+		bytes32 e = keccak256(abi.encodePacked(n));  
+		assembly {   
+			log4(0x0, 0x0, e, t1, t2, t3)    
+		}
+	} 
 
-	function logBytes(string memory n, uint p0, string memory p1, bool p2) external {
-		exudeLog(getName(n), 4, keccak256(abi.encodePacked(p0)), abi.encodePacked(p1), abi.encodePacked(p2), "");
-	}
+	event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, int128 abc);
+	function test10(string memory n, address t1, uint256 t2, bool t3, int128 abc) external { 
+		emit Fire(t1, t2, t3, abc);
+		bytes32 e = keccak256(abi.encodePacked(n));   
+		assembly {   
+			let p := add(0x0, 0x20)
+			mstore(p, abc) 
+			log4(p, 0x20, e, t1, t2, t3)    
+		}
+	}  
 
-  function getName(string memory eventName) private pure returns (bytes32) {
-    return keccak256(abi.encodePacked(eventName));
-  }
+	function getName(string memory eventName) public pure returns (bytes32) {
+		return keccak256(abi.encodePacked(eventName));
+	}
 
 }
