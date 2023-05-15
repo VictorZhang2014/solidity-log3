@@ -7,8 +7,10 @@
 #### Test Case for `log1` for emitting an event without any parameters
 ```	
 event Fire();
+
 function test1(string memory n) external { 
   emit Fire();
+  
   bytes32 e = keccak256(abi.encodePacked(n)); 
   assembly {   
     log1(0x0, 0x0, e)    
@@ -21,8 +23,10 @@ Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x0a7da
 #### Test Case for for `log2` for emitting an event with one indexed parameter
 ```	
 event Fire(int256 indexed t1);
+
 function test2(string memory n, int256 t1) external {  
   emit Fire(t1);
+  
   bytes32 e = keccak256(abi.encodePacked(n)); 
   assembly {   
     log2(0x0, 0x0, e, t1)    
@@ -35,8 +39,10 @@ Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0xc1480
 #### Test Case for `log3` for emitting an event with two indexed parameter
 ```	
 event Fire(address indexed t1, uint256 indexed t2);
+
 function test8(string memory n, address t1, uint256 t2) external { 
   emit Fire(t1, t2);
+  
   bytes32 e = keccak256(abi.encodePacked(n));  
   assembly {   
     log3(0x0, 0x0, e, t1, t2)    
@@ -49,14 +55,16 @@ Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x10bf3
 #### Test Case for `log4` for emitting an event with three indexed parameter
 ```	
 event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, int128 abc);
+
 function test10(string memory n, address t1, uint256 t2, bool t3, int128 abc) external { 
   emit Fire(t1, t2, t3, abc);
+  
   bytes32 e = keccak256(abi.encodePacked(n));   
   assembly {   
     let p := add(0x0, 0x20)
-			mstore(p, abc) 
-			log4(p, 0x20, e, t1, t2, t3)    
-		}
+      mstore(p, abc) 
+      log4(p, 0x20, e, t1, t2, t3)    
+    }
 } 
 ```
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x98813736f2e60e3559837ee33278ea86990e557a0216fe91ca6c559354a86071#eventlog
