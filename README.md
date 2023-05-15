@@ -48,13 +48,15 @@ Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x10bf3
 
 #### Test Case for `log4` for emitting an event with three indexed parameter
 ```	
-event Fire(address indexed t1, uint256 indexed t2, bool indexed t3);
-function test9(string memory n, address t1, uint256 t2, bool t3) external { 
-  emit Fire(t1, t2, t3);
-  bytes32 e = keccak256(abi.encodePacked(n));  
+event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, int128 abc);
+function test10(string memory n, address t1, uint256 t2, bool t3, int128 abc) external { 
+  emit Fire(t1, t2, t3, abc);
+  bytes32 e = keccak256(abi.encodePacked(n));   
   assembly {   
-    log4(0x0, 0x0, e, t1, t2, t3)    
-  }
+    let p := add(0x0, 0x20)
+			mstore(p, abc) 
+			log4(p, 0x20, e, t1, t2, t3)    
+		}
 } 
 ```
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x98813736f2e60e3559837ee33278ea86990e557a0216fe91ca6c559354a86071#eventlog
