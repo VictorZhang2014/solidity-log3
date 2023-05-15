@@ -1,8 +1,10 @@
 # The Usage of log1,log2,log3 and log4 in Solidity
+<br/>
 
-### Deployed Contract for testing: [0x2b1437da111b553cb1384d8d290b08820fd188eb](https://mumbai.polygonscan.com/address/0x2b1437da111b553cb1384d8d290b08820fd188eb)
+#### Deployed Contract for testing: [0x2b1437da111b553cb1384d8d290b08820fd188eb](https://mumbai.polygonscan.com/address/0x2b1437da111b553cb1384d8d290b08820fd188eb)
+<br/>
 
-### Test Case for `log1` for emitting an event without any parameters
+#### Test Case for `log1` for emitting an event without any parameters
 ```	
 event Fire();
 function test1(string memory n) external { 
@@ -14,8 +16,9 @@ function test1(string memory n) external {
 }
 ```
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x0a7da0136ddd431aad5a90a4babcec709f62963b61df3f3341b5f54037b18bb0#eventlog
+<br/>
 
-### Test Case for for `log2` for emitting an event with one indexed parameter
+#### Test Case for for `log2` for emitting an event with one indexed parameter
 ```	
 event Fire(int256 indexed t1);
 function test2(string memory n, int256 t1) external {  
@@ -27,8 +30,9 @@ function test2(string memory n, int256 t1) external {
 }
 ```
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0xc1480bd039b41f6b59fccd4031a7f5951061472201af78aeaafee7b74c2cda74#eventlog
+<br/>
 
-### Test Case for `log3` for emitting an event with two indexed parameter
+#### Test Case for `log3` for emitting an event with two indexed parameter
 ```	
 event Fire(address indexed t1, uint256 indexed t2);
 function test8(string memory n, address t1, uint256 t2) external { 
@@ -40,9 +44,9 @@ function test8(string memory n, address t1, uint256 t2) external {
 }
 ```
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x10bf33dcd46cc6cda1e8315a5e2e735e73567cdc05841b51758847db9421e3b0#eventlog
+<br/>
 
-
-### Test Case for `log4` for emitting an event with three indexed parameter
+#### Test Case for `log4` for emitting an event with three indexed parameter
 ```	
 event Fire(address indexed t1, uint256 indexed t2, bool indexed t3);
 function test9(string memory n, address t1, uint256 t2, bool t3) external { 
@@ -54,4 +58,4 @@ function test9(string memory n, address t1, uint256 t2, bool t3) external {
 } 
 ```
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x98813736f2e60e3559837ee33278ea86990e557a0216fe91ca6c559354a86071#eventlog
-
+<br/>
