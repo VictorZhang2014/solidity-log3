@@ -96,6 +96,17 @@ contract SolidityLogTest {
 		}
 	}  
 
+	event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, string abc);
+	function test11(string memory n, address t1, uint256 t2, bool t3, bytes memory data) external { 
+		emit Fire(t1, t2, t3, abi.decode(data, (string)));
+		bytes32 e = keccak256(abi.encodePacked(n));   
+		assembly {   
+			let p := add(data, 0x20)
+			let s := mload(data) 
+			log4(p, s, e, t1, t2, t3)    
+		}
+	} 
+	
 	function getName(string memory eventName) public pure returns (bytes32) {
 		return keccak256(abi.encodePacked(eventName));
 	}
