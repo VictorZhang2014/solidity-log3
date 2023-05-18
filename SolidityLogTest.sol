@@ -95,10 +95,13 @@ contract SolidityLogTest {
 			log4(p, 0x20, e, t1, t2, t3)    
 		}
 	}  
+	
 
+	/***** General Log for testing *****/
+	event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, uint256 age);
 	event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, string abc);
+	event Fire(address indexed t1, uint256 indexed t2, bool indexed t3, string a, uint256 b, bytes32 c); 
 	function test11(string memory n, address t1, uint256 t2, bool t3, bytes memory data) external { 
-		emit Fire(t1, t2, t3, abi.decode(data, (string)));
 		bytes32 e = keccak256(abi.encodePacked(n));   
 		assembly {   
 			let p := add(data, 0x20)
