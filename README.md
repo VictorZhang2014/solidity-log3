@@ -88,6 +88,33 @@ function test11(string memory n, address t1, uint256 t2, bool t3, bytes memory d
 Transaction on Polygon mumbai network: https://mumbai.polygonscan.com/tx/0x68cd6ab903e450c8d566eb80800aeec759f31b853823c4ee2fa359e13435c5f9#eventlog
 <br/>
 
+#### General Encapsulation for the four log functions
+More details and invokation example, please check the source code here: [SolidityLogTest.sol](https://github.com/VictorZhang2014/solidity-log3/blob/main/SolidityLogTest.sol)
+```
+function exudeLog(uint i, bytes32 eventSig, bytes32 topic1, bytes32  topic2, bytes32 topic3, bytes memory data) public {
+  assembly { 
+		 let p := add(data, 0x20)
+		 let s := mload(data) 
+		    if eq(i, 0x1) {
+          log1(p, s, eventSig)  
+		    } 
+		    if eq(i, 0x2) {
+			    log2(p, s, eventSig, topic1)  
+		    } 
+		    if eq(i, 0x3) {
+			    log3(p, s, eventSig, topic1, topic2)  
+		    }
+		    if eq(i, 0x4) {
+			    log4(p, s, eventSig, topic1, topic2, topic3)  
+		    }
+		}
+} 
+
+function getEventSig(string memory eventSigStr) public pure returns (bytes32) {
+  return keccak256(abi.encodePacked(eventSigStr));
+}
+```
+
 <br/>
 <br/>
 <br/>
